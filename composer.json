@@ -1,0 +1,42 @@
+{
+    "name": "fontis/feedsGenerator",
+    "type": "magento-module",
+    "license": "OSL-3.0",
+    "description": "Generate product feeds for price comparison sites",
+    "authors": [
+        {
+            "name": "Fontis",
+            "email": "magento@fontis.com.au"
+        }
+    ],
+    "require": {
+        "magento-hackathon/magento-composer-installer": "*"
+    },
+    "extra":{
+        "magento_connect":{
+            "channel":"community",
+            "php_min":"5.3.0",
+            "php_max":"6.0.0",
+            "stability":"stable",
+            "license_uri":"http://opensource.org/licenses/osl-3.0.php",
+            "summary":"Exports your product catalogue into formatted feeds for various shopping comparison sites.",
+            "content":[
+                {
+                    "type":"magecommunity",
+                    "structure":"dir",
+                    "path":"Fontis/FeedsGenerator"
+                },
+                {
+                    "type":"magedesign",
+                    "structure":"dir",
+                    "path":"adminhtml/default/default/template/fontis/feedsgenerator"
+                },
+                {
+                    "type":"mageetc",
+                    "structure":"file",
+                    "path":"modules/Fontis_FeedsGenerator.xml"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,4 @@
+# Fontis FeedsGenerator
+src/app/code/community/Fontis/FeedsGenerator                            app/code/community/Fontis/FeedsGenerator
+src/app/design/adminhtml/default/default/template/fontis/feedsgenerator app/design/adminhtml/default/default/template/fontis/feedsgenerator
+src/app/etc/modules/Fontis_FeedsGenerator.xml                           app/etc/modules/Fontis_FeedsGenerator.xml
