@@ -193,7 +193,7 @@ class Fontis_FeedsGenerator_Model_Googleproducts_Cron extends Fontis_FeedsGenera
                             $safeString = $value;
 
                             // Check if the link is a full URL
-                            if (substr($value, 0, 5) != 'http:') {
+                            if (substr($value, 0, 5) != 'http:' && substr($value, 0, 6) != 'https:') {
                                 $safeString = $this->_store->getBaseUrl('media') . 'catalog/product' . $value;
                             }
                         }

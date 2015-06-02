@@ -18,19 +18,26 @@
 
 class Fontis_FeedsGenerator_Model_Googleproducts_Child extends Fontis_FeedsGenerator_Model_Child
 {
+    protected $useVariantConfigurables;
+
+    /**
+     * @var array
+     */
+    protected $linkAttributes = array();
+
     public function __construct($config)
     {
         parent::__construct($config);
 
-        $this->use_variant_configurables = Mage::getStoreConfig(
+        $this->useVariantConfigurables = Mage::getStoreConfig(
             'fontis_feedsgenerator/googleproductsfeed/variant_configurables',
             $this->config->store_id
         );
 
-        $this->linkAttributes = array();
-
         // load the Magento to Google variant attributes array
-        $linkAttributesSetting = unserialize(Mage::getStoreConfig('fontis_feedsgenerator/googleproductsfeed/link_attributes', $this->config->store_id));
+        $linkAttributesSetting = unserialize(
+            Mage::getStoreConfig('fontis_feedsgenerator/googleproductsfeed/link_attributes', $this->config->store_id)
+        );
 
         if ($linkAttributesSetting) {
             foreach ($linkAttributesSetting as $linkAttribute) {
@@ -49,13 +56,14 @@ class Fontis_FeedsGenerator_Model_Googleproducts_Child extends Fontis_FeedsGener
      */
     public function processProduct(Mage_Catalog_Model_Product $parentProduct)
     {
-        if ($this->use_variant_configurables && $parentProduct->getTypeId() == 'configurable') {
+        if ($this->useVariantConfigurables && $parentProduct->getTypeId() == 'configurable') {
             // Get all configurable attributes from the parent product and see
             // if mappings have been provided for them from Magento to
             // Google's variant attributes. If a mapping is found, add a new
             // atttribute specifier object to the list that's processed by
             // getProductData().
             $variantAttributes = array();
+            $isGoogleVariant = true;
             foreach ($parentProduct->getTypeInstance()->getUsedProductAttributes($parentProduct) as $attribute) {
                 if (isset($this->linkAttributes[$attribute->getAttributeCode()])) {
                     $variantAttributes[$this->linkAttributes[$attribute->getAttributeCode()]] = (object)array(
@@ -64,6 +72,13 @@ class Fontis_FeedsGenerator_Model_Googleproducts_Child extends Fontis_FeedsGener
                         'type' => 'product_attribute',
                     );
                 }
+            }
+
+            // If the product doesn't vary by any of the Google-supported variant attributes,
+            // we can't tell Google that it is a variant product. If we pass the g:item_group_id
+            // field but no variant attribute fields, Google will reject it.
+            if (empty($variantAttributes)) {
+                $isGoogleVariant = false;
             }
 
             // Use the parent's link rather than the child's, as the child
@@ -77,7 +92,9 @@ class Fontis_FeedsGenerator_Model_Googleproducts_Child extends Fontis_FeedsGener
             $products = array();
             foreach ($parentProduct->getTypeInstance()->getUsedProducts(null, $parentProduct) as $child) {
                 $childData = $this->getProductData($child, $variantAttributes);
-                $childData['g:item_group_id'] = $parentProduct->getSku();
+                if ($isGoogleVariant === true) {
+                    $childData['g:item_group_id'] = $parentProduct->getSku();
+                }
                 $products[] = $childData;
             }
         } else {

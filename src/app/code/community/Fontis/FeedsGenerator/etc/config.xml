@@ -20,7 +20,7 @@
 <config>
     <modules>
         <Fontis_FeedsGenerator>
-            <version>1.3.0</version>
+            <version>1.4.0</version>
         </Fontis_FeedsGenerator>
     </modules>
     <crontab>
@@ -30,7 +30,7 @@
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>feedsgenerator/shoppingdotcom_cron::generateFeed</model>
+                    <model>feedsgenerator/shoppingdotcom_cron::generateFeedViaMagentoCron</model>
                 </run>
             </Fontis_FeedsGenerator_Shoppingdotcom>
             <Fontis_FeedsGenerator_Myshopping>
@@ -38,7 +38,7 @@
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>feedsgenerator/myshopping_cron::generateFeed</model>
+                    <model>feedsgenerator/myshopping_cron::generateFeedViaMagentoCron</model>
                 </run>
             </Fontis_FeedsGenerator_Myshopping>
             <Fontis_FeedsGenerator_Shopbot>
@@ -46,7 +46,7 @@
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>feedsgenerator/shopbot_cron::generateFeed</model>
+                    <model>feedsgenerator/shopbot_cron::generateFeedViaMagentoCron</model>
                 </run>
             </Fontis_FeedsGenerator_Shopbot>
             <Fontis_FeedsGenerator_Getprice>
@@ -54,7 +54,7 @@
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>feedsgenerator/getprice_cron::generateFeed</model>
+                    <model>feedsgenerator/getprice_cron::generateFeedViaMagentoCron</model>
                 </run>
             </Fontis_FeedsGenerator_Getprice>
             <Fontis_FeedsGenerator_Googleproducts>
@@ -62,7 +62,7 @@
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>feedsgenerator/googleproducts_cron::generateFeed</model>
+                    <model>feedsgenerator/googleproducts_cron::generateFeedViaMagentoCron</model>
                 </run>
             </Fontis_FeedsGenerator_Googleproducts>
             <Fontis_FeedsGenerator_Shoptab>
@@ -70,7 +70,7 @@
                     <cron_expr>0 0 * * *</cron_expr>
                 </schedule>
                 <run>
-                    <model>feedsgenerator/shoptab_cron::generateFeed</model>
+                    <model>feedsgenerator/shoptab_cron::generateFeedViaMagentoCron</model>
                 </run>
             </Fontis_FeedsGenerator_Shoptab>
         </jobs>
@@ -115,6 +115,9 @@
     </global>
     <default>
         <fontis_feedsgenerator>
+            <general>
+                <use_magento_cron>1</use_magento_cron>
+            </general>
             <shoppingdotcomfeed>
                 <output>shoppingdotcom-feeds/</output>
                 <include_all_products>1</include_all_products>

@@ -93,6 +93,15 @@ abstract class Fontis_FeedsGenerator_Model_FeedCronBase
         return str_replace('//', '/', $path);
     }
 
+    public function generateFeedViaMagentoCron()
+    {
+        $useMagentoCron = Mage::getStoreConfigFlag('fontis_feedsgenerator/general/use_magento_cron');
+
+        if ($useMagentoCron === true) {
+            $this->generateFeed();
+        }
+    }
+
     public function generateFeed()
     {
         /** @var $stores Mage_Core_Model_Store[] */
