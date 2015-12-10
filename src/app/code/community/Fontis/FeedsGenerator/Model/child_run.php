@@ -18,8 +18,8 @@
 
 $input = '';
 do {
-    $input .= fgets(STDIN);
-} while (!feof(STDIN));
+    $input .= @fgets(STDIN);
+} while (!@feof(STDIN));
 
 $config = json_decode($input);
 
