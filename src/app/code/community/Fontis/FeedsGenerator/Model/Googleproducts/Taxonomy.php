@@ -28,7 +28,7 @@ class Fontis_FeedsGenerator_Model_Googleproducts_Taxonomy
         $resource = Mage::getSingleton('core/resource');
         $read = $resource->getConnection('core_read');
 
-        $taxonomies = $read->query('SELECT * FROM google_taxonomy')->fetchAll();
+        $taxonomies = $read->query('SELECT * FROM ' . $resource->getTableName('google_taxonomy'))->fetchAll();
 
         foreach ($taxonomies as $taxonomy) {
             $id = $taxonomy['taxonomy_id'];
