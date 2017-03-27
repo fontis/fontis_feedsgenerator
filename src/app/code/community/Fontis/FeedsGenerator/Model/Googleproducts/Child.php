@@ -60,7 +60,7 @@ class Fontis_FeedsGenerator_Model_Googleproducts_Child extends Fontis_FeedsGener
             // Get all configurable attributes from the parent product and see
             // if mappings have been provided for them from Magento to
             // Google's variant attributes. If a mapping is found, add a new
-            // atttribute specifier object to the list that's processed by
+            // attribute specifier object to the list that's processed by
             // getProductData().
             $variantAttributes = array();
             $isGoogleVariant = true;
