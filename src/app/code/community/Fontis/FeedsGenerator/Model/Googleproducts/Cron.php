@@ -223,7 +223,7 @@ class Fontis_FeedsGenerator_Model_Googleproducts_Cron extends Fontis_FeedsGenera
         $this->doc->endDocument();
 
         // Write dom to file
-        $cleanStoreName = str_replace('+', '-', strtolower(urlencode($this->_store->getName())));
+        $cleanStoreName = str_replace('+', '-', Mage::getModel('catalog/product_url')->formatUrlKey($this->_store->getName())); // Sanitize file name
         $filename = $cleanStoreName . '-products.xml';
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);

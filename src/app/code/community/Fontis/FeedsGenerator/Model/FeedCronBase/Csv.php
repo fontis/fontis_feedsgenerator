@@ -78,7 +78,7 @@ abstract class Fontis_FeedsGenerator_Model_FeedCronBase_Csv extends Fontis_Feeds
         rewind($fp);
 
         // Write temp file data to file
-        $cleanStoreName = str_replace('+', '-', strtolower(urlencode($this->_store->getName())));
+        $cleanStoreName = str_replace('+', '-', Mage::getModel('catalog/product_url')->formatUrlKey($this->_store->getName())); // Sanitize file name
         $filename = $cleanStoreName . '-products.csv';
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);

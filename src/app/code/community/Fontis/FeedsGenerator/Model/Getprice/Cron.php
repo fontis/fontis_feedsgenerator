@@ -179,7 +179,7 @@ class Fontis_FeedsGenerator_Model_GetPrice_Cron extends Fontis_FeedsGenerator_Mo
     protected function createXml($data = array())
     {
         // Write DOM to file
-        $filename = $this->info('clean_store_name') . '-' . $data['name'] . '.xml';
+        $filename = Mage::getModel('catalog/product_url')->formatUrlKey($this->_store->getName()) . '-' . $data['name'] . '.xml'; // Sanitize file name
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);
         $io->open(array('path' => $this->getPath()));

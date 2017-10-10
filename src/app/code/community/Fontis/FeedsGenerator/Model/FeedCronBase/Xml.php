@@ -76,7 +76,7 @@ class Fontis_FeedsGenerator_Model_FeedCronBase_Xml extends Fontis_FeedsGenerator
     protected function finaliseStoreData()
     {
         // Write DOM to file
-        $filename = $this->info("clean_store_name") . '-products.xml';
+        $filename = Mage::getModel('catalog/product_url')->formatUrlKey($this->_store->getName()) . '-products.xml'; // Sanitize file name
         $io = new Varien_Io_File();
         $io->setAllowCreateFolders(true);
         $io->open(array('path' => $this->getPath()));
